@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Educação Financeira – Simuladores SAC, PRICE e Renda Fixa</title>
+<style>
+:root{--bg:#f6f8f7;--fg:#14211c;--mut:#51615a;--card:#fff;--bd:#d5dfd9;--pri:#0b6e4f;--pri-fg:#fff;--acc:#c2410c;--err:#b42318;--errbg:#fdecea;--ok:#e6f4ee;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0f1713;--fg:#e8f1ec;--mut:#a3b5ac;--card:#17231d;--bd:#2c3e35;--pri:#3ecf9a;--pri-fg:#06251a;--acc:#fb923c;--err:#ff8a80;--errbg:#3a1a17;--ok:#163326}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#0f1713;--fg:#e8f1ec;--mut:#a3b5ac;--card:#17231d;--bd:#2c3e35;--pri:#3ecf9a;--pri-fg:#06251a;--acc:#fb923c;--err:#ff8a80;--errbg:#3a1a17;--ok:#163326}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{background:var(--pri);color:var(--pri-fg);position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+.bar{max-width:1000px;margin:auto;padding:10px 16px;display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between}
+.brand{font-weight:700;font-size:1.1rem}
+nav{display:flex;flex-wrap:wrap;gap:6px}
+nav a{color:inherit;text-decoration:none;padding:7px 12px;border-radius:8px;font-weight:600;border:1px solid transparent}
+nav a:hover{border-color:currentColor}
+nav a[aria-current="page"]{background:var(--pri-fg);color:var(--pri)}
+main{max-width:1000px;margin:auto;padding:20px 16px 48px}
+section.page{display:none}section.page.on{display:block}
+h1{font-size:1.9rem;line-height:1.2;margin:.2em 0 .4em}h2{font-size:1.35rem;margin:1.4em 0 .5em}h3{font-size:1.1rem;margin:1.1em 0 .3em}
+p,li{max-width:75ch}.mut{color:var(--mut)}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:18px;margin:14px 0}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+form .grid{align-items:end}
+label{display:block;font-weight:600;margin-bottom:4px}
+input,select{width:100%;padding:11px 12px;font:inherit;color:var(--fg);background:var(--bg);border:2px solid var(--bd);border-radius:8px}
+input:focus,select:focus,button:focus-visible,a:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+small{color:var(--mut)}
+button{font:inherit;font-weight:700;padding:12px 20px;border:0;border-radius:8px;background:var(--pri);color:var(--pri-fg);cursor:pointer;min-height:44px}
+button.sec{background:transparent;color:var(--fg);border:2px solid var(--bd)}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.msg{border-radius:8px;padding:12px 14px;margin-top:14px}
+.err{background:var(--errbg);color:var(--err);border:1px solid var(--err)}
+.err ul{margin:.3em 0 0;padding-left:1.2em}
+.okb{background:var(--ok);border:1px solid var(--pri)}
+.kpis{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));margin:14px 0}
+.kpi{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:12px}
+.kpi span{display:block;color:var(--mut);font-size:.85rem}.kpi b{font-size:1.2rem}
+.tw{overflow-x:auto;max-height:430px;overflow-y:auto;border:1px solid var(--bd);border-radius:10px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:.93rem}
+th,td{padding:8px 12px;text-align:right;border-bottom:1px solid var(--bd);white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+thead th{position:sticky;top:0;background:var(--pri);color:var(--pri-fg)}
+svg.ch{width:100%;height:auto;display:block}
+.hero{padding:10px 0 6px}
+.tiles a{display:block;text-decoration:none;color:inherit;background:var(--card);border:2px solid var(--bd);border-radius:12px;padding:18px}
+.tiles a:hover{border-color:var(--pri)}.tiles b{color:var(--pri);font-size:1.15rem}
+code{background:var(--ok);padding:1px 6px;border-radius:5px}
+footer{text-align:center;color:var(--mut);padding:20px 16px;font-size:.9rem}
+a{color:var(--pri)}
+</style>
+</head>
+<body>
+<header><div class="bar"><div class="brand">💰 Educação Financeira</div>
+<nav id="nav" aria-label="Menu principal">
+<a href="#inicio">Início</a><a href="#financiamento">Financiamento</a><a href="#investimento">Investimento</a><a href="#conteudo">Aprenda</a><a href="#fontes">Fontes e créditos</a>
+</nav></div></header>
+<main>
+
+<section class="page" id="p-inicio">
+<div class="hero"><h1>Simule, compare e entenda</h1>
+<p>Site educativo com simuladores de financiamento (SAC e PRICE) e de investimento em renda fixa, além de explicações sobre as modalidades pesquisadas. Os resultados são calculados na hora, com os valores que você digitar.</p></div>
+<div class="grid tiles">
+<a href="#financiamento"><b>Simulador de financiamento →</b><p class="mut">SAC × PRICE: prestações, juros, saldo devedor e comparação.</p></a>
+<a href="#investimento"><b>Simulador de investimento →</b><p class="mut">Juros compostos em renda fixa com evolução mensal e gráfico.</p></a>
+<a href="#conteudo"><b>Aprenda →</b><p class="mut">Poupança, CDB, LCI/LCA, Tesouro Direto, renda variável e reflexões.</p></a>
+</div>
+<div class="card"><h3>Como usar</h3><ol><li>Escolha um simulador no menu.</li><li>Preencha os campos (use vírgula para decimais, ex.: <code>1,5</code>).</li><li>Clique em simular e analise tabelas e gráficos.</li></ol>
+<p class="mut">Não pedimos dados pessoais nem bancários. As simulações são ilustrativas e não são recomendação de investimento.</p></div>
+</section>
+
+<section class="page" id="p-financiamento">
+<h1>Simulador de financiamento</h1>
+<p>Informe o valor, a taxa mensal e o prazo. O site calcula o sistema escolhido e sempre compara SAC e PRICE.</p>
+<div class="card"><form id="ff" novalidate>
+<div class="grid">
+<div><label for="fv">Valor financiado (R$)</label><input id="fv" inputmode="decimal" placeholder="100000" value="100000"></div>
+<div><label for="fi">Taxa de juros mensal (%)</label><input id="fi" inputmode="decimal" placeholder="1" value="1"></div>
+<div><label for="fn">Número de prestações (meses)</label><input id="fn" inputmode="numeric" placeholder="12" value="12"></div>
+<div><label for="fs">Sistema de amortização</label><select id="fs"><option value="SAC">SAC</option><option value="PRICE">PRICE</option></select></div>
+</div>
+<div class="btns"><button type="submit">Simular financiamento</button><button type="button" class="sec" id="fclear">Limpar</button></div>
+</form><div id="ferr" role="alert"></div></div>
+<div id="fres"></div>
+</section>
+
+<section class="page" id="p-investimento">
+<h1>Simulador de investimento em renda fixa</h1>
+<p>Projeção com juros compostos e taxa mensal constante: <code>M = C × (1 + i)ⁿ</code>.</p>
+<div class="card"><form id="if" novalidate>
+<div class="grid">
+<div><label for="ic">Capital inicial (R$)</label><input id="ic" inputmode="decimal" value="1000"></div>
+<div><label for="in">Prazo (meses)</label><input id="in" inputmode="numeric" value="12"></div>
+<div><label for="ii">Taxa mensal estimada (%)</label><input id="ii" inputmode="decimal" value="1"></div>
+</div>
+<div class="btns"><button type="submit">Simular investimento</button><button type="button" class="sec" id="iclear">Limpar</button></div>
+</form><div id="ierr" role="alert"></div></div>
+<div id="ires"></div>
+</section>
+
+<section class="page" id="p-conteudo">
+<h1>Aprenda sobre financiamentos e investimentos</h1>
+<h2>Financiamento: SAC e PRICE</h2>
+<div class="card"><p>Financiamento é uma operação de crédito em que a instituição empresta um valor e o cliente devolve em parcelas, com juros e, conforme o contrato, outras despesas. A <b>prestação</b> é juros + amortização; o <b>saldo devedor</b> é o que falta pagar.</p>
+<p><b>SAC:</b> amortização constante (<code>A = V/n</code>), juros sobre o saldo (<code>J = SD × i</code>), prestação <code>P = A + J</code>. As prestações começam maiores e diminuem.</p>
+<p><b>PRICE:</b> prestação fixa <code>P = V × i(1+i)ⁿ / ((1+i)ⁿ − 1)</code>; amortização <code>A = P − J</code>. No início, a maior parte da parcela é juros. Com taxa zero, <code>P = V/n</code>.</p>
+<p><b>Taxa de juros × CET:</b> a taxa é o custo do dinheiro emprestado; o Custo Efetivo Total (CET) soma também tarifas, impostos (como IOF) e seguros. Compare sempre o CET.</p></div>
+<h2>Renda fixa</h2>
+<p>As regras de remuneração são conhecidas na aplicação, embora o retorno possa depender de índices (CDI, Selic, IPCA).</p>
+<div class="grid">
+<div class="card"><h3>Poupança</h3><p>Rende 0,5% ao mês + TR quando a Selic está acima de 8,5% a.a.; abaixo disso, 70% da Selic + TR. Rendimento creditado no “aniversário” mensal. Isenta de IR. Cobertura do FGC. Risco: não acompanhar a inflação.</p></div>
+<div class="card"><h3>CDB</h3><p>Emitido por bancos. Pode ser prefixado, pós-fixado (% do CDI) ou híbrido. Liquidez conforme o contrato. IR regressivo (e IOF antes de 30 dias). Cobertura do FGC nos limites aplicáveis. Risco de crédito do emissor.</p></div>
+<div class="card"><h3>LCI e LCA</h3><p>Letras de crédito imobiliário e do agronegócio. Prefixadas, pós-fixadas ou híbridas, com carência e vencimento definidos. Atualmente isentas de IR para pessoa física. Cobertura do FGC. Risco de ficar sem acesso ao dinheiro na carência.</p></div>
+<div class="card"><h3>Tesouro Direto</h3><p><b>Selic:</b> acompanha a taxa Selic, liquidez diária, indicado para reserva de emergência. <b>Prefixado:</b> taxa definida na compra; venda antecipada pode gerar perda. <b>IPCA+:</b> inflação + taxa fixa, para longo prazo. IR regressivo. <i>Sem cobertura do FGC</i>: a obrigação é do Tesouro Nacional.</p></div>
+</div>
+<h2>Renda variável (breve explicação)</h2>
+<div class="card"><p>Na renda variável, como ações e fundos imobiliários, a rentabilidade não é garantida: o investidor pode ganhar ou perder dinheiro, e o preço oscila conforme o mercado e a empresa. Exige mais estudo, diversificação e horizonte de longo prazo.</p></div>
+<h2>Reflexão crítica: investir e renda passiva</h2>
+<div class="card">
+<ul>
+<li><b>Investir não garante enriquecimento.</b> O resultado depende do valor aplicado, da frequência, do tempo, da rentabilidade, dos impostos e da inflação.</li>
+<li><b>Desigualdade importa.</b> Quem tem renda menor pode gastar quase tudo com alimentação, moradia, transporte e saúde e sobrar pouco para investir. Poupar não é só questão de disciplina individual.</li>
+<li><b>Renda passiva exige capital.</b> Com taxa hipotética de 1% ao mês, para receber R$ 500 mensais seriam necessários R$ 50.000 (500 ÷ 0,01), antes de impostos e inflação.</li>
+<li><b>Nominal × real.</b> Rendimento de 10% com inflação de 6% dá ganho real de (1,10 ÷ 1,06) − 1 ≈ 3,77%.</li>
+<li><b>Retiradas reduzem os juros compostos</b>, pois diminuem o capital que rende.</li>
+<li><b>Desconfie de lucro fácil:</b> promessas de retorno alto e garantido, pressa para investir, falta de informação sobre a empresa e sobre os riscos.</li>
+<li><b>Mesma taxa, resultado diferente:</b> a 1% ao mês, R$ 1.000 rendem R$ 10 no mês; R$ 100.000 rendem R$ 1.000. O ganho é proporcional ao capital.</li>
+</ul></div>
+</section>
+
+<section class="page" id="p-fontes">
+<h1>Fontes e créditos</h1>
+<div class="card"><h3>Grupo (2ºB)</h3><ul><li>Bryan Cardoso</li><li>Emanuel Batista</li><li>Lucas Teberga</li><li>Theo Toledo</li></ul></div>
+<div class="card"><h3>Fontes consultadas</h3><ul>
+<li>SAC e PRICE: <a href="https://www.slideserve.com/amandla/amortiza-o" target="_blank" rel="noopener">SlideServe – Amortização</a>; <a href="https://maisretorno.com/portal/termos/t/tabela-price" target="_blank" rel="noopener">Mais Retorno – Tabela Price</a>; <a href="https://brasilescola.uol.com.br/matematica/sac-sistema-amortizacoes-constantes.htm" target="_blank" rel="noopener">Brasil Escola – SAC</a></li>
+<li>Poupança: <a href="https://investnews.com.br/financas/poupanca-nova-rentabilidade-com-selic-acima-de-85-ao-ano-entenda/" target="_blank" rel="noopener">InvestNews</a>; <a href="https://www.caixa.gov.br/voce/poupanca-e-investimentos/poupanca/Paginas/default.aspx" target="_blank" rel="noopener">Caixa</a></li>
+<li>CDB: <a href="https://www.itau.com.br/investimentos/tipos-de-investimentos/cdb/" target="_blank" rel="noopener">Itaú</a>; Creditas (artigo sobre CDB com liquidez diária)</li>
+<li>LCI e LCA: <a href="https://nubank.com.br/nu/investimentos/lci-lca" target="_blank" rel="noopener">Nubank</a>; <a href="https://www.itau.com.br/investimentos/tipos-de-investimentos/lci-lca-lcd/" target="_blank" rel="noopener">Itaú</a></li>
+<li>Tesouro Direto: <a href="https://www.caixa.gov.br/voce/poupanca-e-investimentos/tesouro-direto/paginas/default.aspx" target="_blank" rel="noopener">Caixa</a>; <a href="https://inter.co/pra-voce/investimentos/renda-fixa/tesouro-direto/" target="_blank" rel="noopener">Inter</a></li>
+</ul><p class="mut">Datas de consulta: conforme registrado no relatório (Parte 1, 10/11/2026).</p></div>
+<div class="card"><h3>Limitações das simulações</h3><ul>
+<li>Taxa constante em todo o período; sem inflação, impostos (IR/IOF), tarifas, seguros ou CET.</li>
+<li>Valores calculados com precisão decimal do navegador e arredondados na exibição; diferenças de centavos podem ocorrer.</li>
+<li>Fins educativos; não é recomendação de investimento.</li></ul></div>
+</section>
+</main>
+<footer>Trabalho em grupo – 4º Bimestre · Educação financeira · Campinas, 2026</footer>
+
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+var brl=function(v){return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})};
+var pc=function(v){return v.toLocaleString('pt-BR',{maximumFractionDigits:4})+'%'};
+function num(s){s=String(s).trim();if(s==='')return NaN;if(s.indexOf(',')>-1)s=s.replace(/\./g,'').replace(',','.');return /^-?\d*\.?\d+$/.test(s)?Number(s):NaN}
+function errs(el,list){el.innerHTML=list.length?'<div class="msg err"><b>Corrija os campos abaixo:</b><ul>'+list.map(function(e){return'<li>'+e+'</li>'}).join('')+'</ul></div>':''}
+function validMoney(v,name,l){if(isNaN(v))l.push(name+': preencha com um número válido (ex.: 1000 ou 1000,50).');else if(v<=0)l.push(name+': informe um valor maior que zero.');else if(v>1e12)l.push(name+': valor muito alto.')}
+function validRate(v,l){if(isNaN(v))l.push('Taxa mensal: preencha com um número (pode ser 0).');else if(v<0)l.push('Taxa mensal: não pode ser negativa.');else if(v>100)l.push('Taxa mensal: máximo de 100% ao mês.')}
+function validN(v,l){if(isNaN(v))l.push('Prazo: preencha com um número inteiro de meses.');else if(v<=0)l.push('Prazo: deve ser de pelo menos 1 mês.');else if(v%1!==0)l.push('Prazo: use um número inteiro de meses.');else if(v>600)l.push('Prazo: máximo de 600 meses.')}
+
+function chart(series,title,ylab){
+var W=640,H=280,L=78,R=14,T=26,B=40,n=series[0].v.length,mx=-1e99,mn=1e99;
+series.forEach(function(s){s.v.forEach(function(y){if(y>mx)mx=y;if(y<mn)mn=y})});
+if(mx===mn){mx+=1;mn-=1}var pad=(mx-mn)*.05;mx+=pad;mn=Math.max(0,mn-pad);
+var X=function(k){return L+(n>1?k*(W-L-R)/(n-1):0)},Y=function(v){return T+(mx-v)*(H-T-B)/(mx-mn)};
+var o='<svg class="ch" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="'+title+'"><text x="'+L+'" y="16" fill="currentColor" font-size="13" font-weight="700">'+title+'</text>';
+for(var g=0;g<=4;g++){var v=mn+(mx-mn)*g/4,y=Y(v);o+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+y+'" y2="'+y+'" stroke="currentColor" opacity=".15"/><text x="'+(L-6)+'" y="'+(y+4)+'" text-anchor="end" font-size="10" fill="currentColor">'+v.toLocaleString('pt-BR',{maximumFractionDigits:0})+'</text>'}
+o+='<text x="'+L+'" y="'+(H-18)+'" font-size="10" fill="currentColor">'+ylab+'</text><text x="'+(W-R)+'" y="'+(H-18)+'" text-anchor="end" font-size="10" fill="currentColor">mês '+(n-1)+'</text>';
+var lx=L+150;
+series.forEach(function(s,k){var d=s.v.map(function(y,j){return(j?'L':'M')+X(j).toFixed(1)+' '+Y(y).toFixed(1)}).join('');
+o+='<path d="'+d+'" fill="none" stroke="'+s.c+'" stroke-width="2.5"'+(k?' stroke-dasharray="6 4"':'')+'/><rect x="'+(lx+k*110)+'" y="6" width="14" height="4" fill="'+s.c+'"/><text x="'+(lx+k*110+18)+'" y="12" font-size="11" fill="currentColor">'+s.name+'</text>'});
+return o+'</svg>'}
+
+function amort(V,i,n,sys){var rows=[],sd=V,A=V/n,P=i===0?V/n:V*i*Math.pow(1+i,n)/(Math.pow(1+i,n)-1);
+for(var m=1;m<=n;m++){var j=sd*i,a,p;if(sys==='SAC'){a=A;p=a+j}else{p=P;a=p-j}sd-=a;if(Math.abs(sd)<1e-6)sd=0;rows.push({m:m,p:p,j:j,a:a,s:sd})}
+var tj=0,tp=0;rows.forEach(function(r){tj+=r.j;tp+=r.p});return{rows:rows,tj:tj,tp:tp,first:rows[0].p,last:rows[n-1].p}}
+function table(head,rows){return'<div class="tw"><table><thead><tr>'+head.map(function(h){return'<th scope="col">'+h+'</th>'}).join('')+'</tr></thead><tbody>'+rows.map(function(r){return'<tr>'+r.map(function(c){return'<td>'+c+'</td>'}).join('')+'</tr>'}).join('')+'</tbody></table></div>'}
+function kpi(l,v){return'<div class="kpi"><span>'+l+'</span><b>'+v+'</b></div>'}
+
+function simF(e){if(e)e.preventDefault();
+var V=num($('fv').value),i=num($('fi').value),n=num($('fn').value),sys=$('fs').value,l=[];
+validMoney(V,'Valor financiado',l);validRate(i,l);validN(n,l);errs($('ferr'),l);
+if(l.length){$('fres').innerHTML='';return}
+var r=i/100,S=amort(V,r,n,'SAC'),P=amort(V,r,n,'PRICE'),C=sys==='SAC'?S:P;
+var fin=C.rows[n-1].s,out='<h2>Resultado – '+sys+'</h2><p class="mut">Valor '+brl(V)+' · taxa '+pc(i)+' ao mês · '+n+' prestações'+(i===0?' · taxa zero: sem juros':'')+'</p>';
+out+='<div class="kpis">'+kpi('1ª prestação',brl(C.first))+kpi('Última prestação',brl(C.last))+kpi('Total de juros',brl(C.tj))+kpi('Total pago',brl(C.tp))+'</div>';
+out+='<div class="msg okb">Conferência: saldo devedor final = <b>'+brl(Math.abs(fin)<0.005?0:fin)+'</b>. Pequenas diferenças de centavos podem aparecer por arredondamento na exibição.</div>';
+out+='<h3>Evolução mensal ('+sys+')</h3>'+table(['Mês','Prestação','Juros','Amortização','Saldo devedor'],C.rows.map(function(x){return[x.m,brl(x.p),brl(x.j),brl(x.a),brl(Math.abs(x.s)<0.005?0:x.s)]}));
+var d=P.tp-S.tp;
+out+='<h2>Comparação SAC × PRICE</h2>'+table(['Item','SAC','PRICE'],[['1ª prestação',brl(S.first),brl(P.first)],['Última prestação',brl(S.last),brl(P.last)],['Total de juros',brl(S.tj),brl(P.tj)],['Total pago',brl(S.tp),brl(P.tp)],['Amortização','Constante','Crescente'],['Prestações','Decrescentes','Constantes']]);
+out+='<p>'+(Math.abs(d)<0.005?'Os dois sistemas têm o mesmo custo total (taxa zero).':'Neste cenário, a <b>'+(d>0?'PRICE':'SAC')+'</b> paga <b>'+brl(Math.abs(d))+'</b> a mais em juros.')+'</p>';
+out+='<div class="card">'+chart([{name:'SAC',c:'var(--pri)',v:S.rows.map(function(x){return x.p})},{name:'PRICE',c:'var(--acc)',v:P.rows.map(function(x){return x.p})}],'Prestação mensal (R$)','R$')+'</div>';
+out+='<div class="card">'+chart([{name:'SAC',c:'var(--pri)',v:[V].concat(S.rows.map(function(x){return x.s}))},{name:'PRICE',c:'var(--acc)',v:[V].concat(P.rows.map(function(x){return x.s}))}],'Saldo devedor (R$)','R$')+'</div>';
+$('fres').innerHTML=out}
+
+function simI(e){if(e)e.preventDefault();
+var C=num($('ic').value),n=num($('in').value),i=num($('ii').value),l=[];
+validMoney(C,'Capital inicial',l);validN(n,l);validRate(i,l);errs($('ierr'),l);
+if(l.length){$('ires').innerHTML='';return}
+var r=i/100,rows=[],s=C,prev=C;
+for(var m=0;m<=n;m++){s=C*Math.pow(1+r,m);rows.push([m===0?'Inicial':m,brl(s),brl(s-prev),brl(s-C)]);prev=s}
+var M=C*Math.pow(1+r,n),R=M-C,vals=[];for(var k=0;k<=n;k++)vals.push(C*Math.pow(1+r,k));
+var out='<h2>Resultado</h2><div class="kpis">'+kpi('Capital inicial',brl(C))+kpi('Prazo',n+(n===1?' mês':' meses'))+kpi('Taxa mensal usada',pc(i))+kpi('Saldo bruto final',brl(M))+kpi('Rendimento bruto',brl(R))+'</div>';
+out+='<p class="mut">Condições: juros compostos, taxa constante'+(i===0?' (taxa zero: o saldo não cresce)':'')+', valores brutos, sem imposto de renda, IOF, taxas ou inflação.</p>';
+out+='<div class="card">'+chart([{name:'Saldo',c:'var(--pri)',v:vals}],'Evolução do saldo (R$)','R$')+'</div>';
+out+='<h3>Evolução mensal</h3>'+table(['Mês','Saldo acumulado','Rendimento do mês','Rendimento acumulado'],rows);
+$('ires').innerHTML=out}
+
+$('ff').addEventListener('submit',simF);$('if').addEventListener('submit',simI);
+$('fclear').onclick=function(){['fv','fi','fn'].forEach(function(x){$(x).value=''});$('fres').innerHTML='';$('ferr').innerHTML=''};
+$('iclear').onclick=function(){['ic','in','ii'].forEach(function(x){$(x).value=''});$('ires').innerHTML='';$('ierr').innerHTML=''};
+
+var names=['inicio','financiamento','investimento','conteudo','fontes'];
+function route(){var h=(location.hash||'#inicio').slice(1);if(names.indexOf(h)<0)h='inicio';
+names.forEach(function(x){$('p-'+x).classList.toggle('on',x===h)});
+document.querySelectorAll('#nav a').forEach(function(a){if(a.getAttribute('href')==='#'+h)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
+window.scrollTo(0,0)}
+window.addEventListener('hashchange',route);route();
+})();
+</script>
+</body>
+</html>
